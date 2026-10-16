@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block title %}My Profile | Student Portal{% endblock %}
+{% block shell_class %}page-shell--wide{% endblock %}
+
+{% block content %}
+<section class="card dashboard-card">
+    <header class="profile-header">
+        <div>
+            <div class="section-kicker">STUDENT DASHBOARD</div>
+            <h1>Hello, {{ student.name }}</h1>
+            <p class="intro">Your student profile and course dashboard.</p>
+        </div>
+        <time id="live-time" class="clock badge rounded-pill" aria-label="Current time"></time>
+    </header>
+
+    <div class="profile-actions">
+        <button class="button btn btn-outline-primary" id="toggle-details" type="button">
+            Hide Details
+        </button>
+        <a class="button btn btn-outline-secondary" href="{{ url_for('logout') }}">Log out</a>
+    </div>
+
+    <div id="profile-details" class="row g-3">
+        <div class="col-sm-6">
+            <div class="detail h-100">
+                <span class="detail-label">Name</span>
+                <span class="detail-value">{{ student.name }}</span>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="detail h-100">
+                <span class="detail-label">Email</span>
+                <span class="detail-value">{{ student.email }}</span>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="detail h-100">
+                <span class="detail-label">Age</span>
+                <span class="detail-value">{{ student.age }}</span>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="detail h-100">
+                <span class="detail-label">Course</span>
+                <span class="detail-value" id="profile-course">{{ student.course }}</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="course-control course-control--spaced">
+        <label class="form-label" for="course-select">Update course</label>
+        <select class="form-select" id="course-select" name="course">
+            {% for course in courses %}
+                <option value="{{ course }}" {% if course == student.course %}selected{% endif %}>
+                    {{ course }}
+                </option>
+            {% endfor %}
+        </select>
+    </div>
+</section>
+{% endblock %}
